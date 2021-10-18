@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DelegateLinq
 {
+    using System;
+    using System.Collections.Generic;
+
     public class CalculatorMethods
     {
-        public delegate int SumDelegate(int value1, int value2);
-
-        private int SumCallsCount = 0;
         private List<int> results = new List<int>();
+        private int sumCallsCount = 0;
+
+        public delegate int SumDelegate(int value1, int value2);
 
         public int Sum(int value1, int value2)
         {
-            return SafeDelegateCall(InternalSum, value1, value2);
+            return this.SafeDelegateCall(this.InternalSum, value1, value2);
         }
 
         private int InternalSum(int value1, int value2)
@@ -25,11 +23,11 @@ namespace DelegateLinq
 
         private int SafeDelegateCall(SumDelegate sum, int value1, int value2)
         {
-            SumCallsCount++;
+            this.sumCallsCount++;
             try
             {
                 int result = sum.Invoke(value1, value2);
-                results.Add(result);
+                this.results.Add(result);
                 return result;
             }
             catch

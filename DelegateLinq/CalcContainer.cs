@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DelegateLinq
 {
     public class CalcContainer
     {
+        private int counter = 1;
+
         public event CalculatorMethods.SumDelegate CounterIsTooBig;
 
-        int counter = 1;
         public void Multiply(int multiplier)
         {
-            counter *= multiplier;
-            if (counter > 200)
+            this.counter *= multiplier;
+            if (this.counter > 200)
             {
-                CounterIsTooBig?.Invoke(counter / 5, counter % 7);
+                this.CounterIsTooBig?.Invoke(this.counter / 5, this.counter % 7);
             }
         }
-
     }
 }
